@@ -1,28 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace TwoSumSolution
 {
     public class Solution
     {
+        // Method to find indices of two numbers that add up to the target
         public int[] TwoSum(int[] nums, int target)
         {
-            // Create a dictionary to store the value-to-index mapping
-            Dictionary<int, int> numToIndex = new Dictionary<int, int>();
-
             // Iterate through the array
             for (int i = 0; i < nums.Length; i++)
             {
-                int complement = target - nums[i];
-
-                // If the complement exists in the dictionary, return the indices
-                if (numToIndex.TryGetValue(complement, out int index))
+                // Check all pairs with the current number
+                for (int j = i + 1; j < nums.Length; j++)
                 {
-                    return new int[] { index, i };
+                    // If the sum equals the target, return the indices
+                    if (nums[i] + nums[j] == target)
+                    {
+                        return new int[] { i, j };
+                    }
                 }
-
-                // Otherwise, add the current number to the dictionary
-                numToIndex[nums[i]] = i;
             }
 
             // No valid solution found, throw an exception
@@ -44,7 +40,6 @@ namespace TwoSumSolution
                 // Find the indices of the two numbers
                 int[] result = new Solution().TwoSum(nums, target);
                 Console.WriteLine($"Indices of the two numbers: [{result[0]}, {result[1]}]");
-                //Console.WriteLine($"Explanation: Because nums[{result[0]}] + nums[{result[1]}] == {target}, we return [{result[0]}, {result[1]}].");
             }
             catch (ArgumentException ex)
             {
